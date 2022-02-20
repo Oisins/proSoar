@@ -2,7 +2,6 @@ from prosoar.task.task import Task
 from prosoar.task.turnpoint import Turnpoint
 
 import json
-import urllib2
 
 
 def parse_json_task(json_string):

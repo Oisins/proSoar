@@ -68,3 +68,4 @@ web_dev/images/OpenLayers
 
 *.swp
 *.swo
+/static/OFM/

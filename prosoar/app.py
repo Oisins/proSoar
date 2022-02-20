@@ -1,17 +1,17 @@
-import sys
 import os.path
 
-from flask import Flask, request, render_template
-from flask.ext.babel import Babel, get_locale
 from babel.core import negotiate_locale
+from flask import Flask, request, render_template
+from flask_babel import Babel, get_locale
 
-from views.airports import bp as airports
-from views.height import bp as height
-from views.igc import bp as igc
-from views.search import bp as search
-from views.settings import bp as settings
-from views.tasks import bp as tasks
-from views.waypoints import bp as waypoints
+from .views.airports import bp as airports
+from .views.height import bp as height
+from .views.igc import bp as igc
+from .views.search import bp as search
+from .views.settings import bp as settings
+from .views.tasks import bp as tasks
+from .views.waypoints import bp as waypoints
+from .views.map import bp as map_tiles
 
 APP_FOLDER = os.path.abspath(os.path.join(__file__, '..', '..'))
 STORAGE_FOLDER = os.path.join(APP_FOLDER, 'storage')
@@ -31,6 +31,7 @@ app.config['USERS_FOLDER'] = os.path.join(STORAGE_FOLDER, 'users')
 
 babel = Babel(app)
 
+
 @babel.localeselector
 def get_locale():
     preferred = map(lambda x: x.replace('-', '_'),
@@ -42,6 +43,7 @@ def get_locale():
 def inject_get_locale():
     return dict(get_locale=get_locale)
 
+
 app.register_blueprint(airports, url_prefix='/airports')
 app.register_blueprint(height, url_prefix='/height')
 app.register_blueprint(igc, url_prefix='/igc')
@@ -49,6 +51,7 @@ app.register_blueprint(tasks, url_prefix='/tasks')
 app.register_blueprint(search, url_prefix='/search')
 app.register_blueprint(settings, url_prefix='/settings')
 app.register_blueprint(waypoints, url_prefix='/waypoints')
+app.register_blueprint(map_tiles)
 
 
 @app.route("/")

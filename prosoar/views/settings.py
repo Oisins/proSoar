@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from geoip import geolite2
+import geoip2
 
 from prosoar.userconfig import get_uid_from_cookie, get_user_config_as_json
 
@@ -14,12 +14,13 @@ def initial_js():
 
 @bp.route('/load')
 def load(type='json'):
+    return ""
     uid = get_uid_from_cookie()
 
     type = request.values.get('as', type)
 
     if type == 'js':
-        match = geolite2.lookup(request.remote_addr)
+        match = geoip2.lookup(request.remote_addr)
 
         settings = \
             'var initialSettings = ' + get_user_config_as_json(uid) + ';'

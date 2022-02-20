@@ -1,6 +1,6 @@
 import os
 import sys
-from xcsoar.analysis import analyse_flight as _analyse_flight
+# from xcsoar.analysis import analyse_flight as _analyse_flight
 
 
 def analyse_flight(filename):
